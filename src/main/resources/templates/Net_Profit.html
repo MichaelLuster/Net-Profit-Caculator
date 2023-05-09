@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Net Profit Input</title>
+</head>
+<body>
+	<h1 align="center">Net Profit Caculator</h1>
+	<br/>
+    <table border="1" cellpadding="10" align="center" id="myTable">
+        <thead>
+            <tr>
+                <th>Card Name</th>
+                <th>Cost</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Cost</th>
+                <th>Taxes</th>
+                <th>Fees</th>
+                <th>Net Profit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="purchase : ${purchases}">
+                <td th:text="${purchase.CardName}"></td>
+                <td th:text="${purchase.CardCost}"></td>
+                <td th:text="${purchase.CardPrice}"></td>
+                <td th:text="${purchase.CardQuantity}"></td>
+                <td th:text="${purchase.CardCost}*${purchase.CardQuantity}"></td>
+                <td th:text="${purchase.CardCost}*${purchase.CardQuantity}*0.1"></td>
+                <td th:text="${purchase.CardPrice}*${purchase.CardQuantity}*0.15"></td>
+                <td th:text="(${purchase.CardPrice}*${purchase.CardQuantity}*0.85-(${purchase.CardCost}*${purchase.CardQuantity}*0.1))"></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <p align="center">Shipping:&nbsp; &nbsp; $0.99</p>
+    
+    <body align="center" onload="NetProfitCalc()">
+    
+      <p>Net Profit: <span id="val"></span></p>
+    
+    </body>
+    <!-- <form action="#" th:action="@{/Net_Profit}" th:object="${purchase}" method="post">
+    	<p>Id: <input type="text" th:field="*{id}" /></p>
+        <p>Message: <input type="text" th:field="*{content}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+
+    <button onclick="myCreateFunction()">Create row</button>
+    <button onclick="myDeleteFunction()">Delete row</button> -->
+
+    <script>
+    function NetProfitCalc(){
+        var table = document.getElementById("myTable");
+        let subTotal = Array.from(table.rows).slice(1).reduce((total, row) => {
+            return total + parseFloat(row.cells[7].innerHTML);
+        }, 0);
+        subTotal = subTotal - (0.99*0.1)-0.99;
+        document.getElementById("val").innerHTML = subTotal.toFixed(2);
+    }
+    // function myCreateFunction() {
+    // var table = document.getElementById("myTable");
+    // var row = table.insertRow(0);
+    // var CardName = row.insertCell(0);
+    // var CardCost = row.insertCell(1);
+    // var CardPrice = row.insertCell(2);
+    // var CardQuantity = row.insertCell(3);
+    // CardName.innerHTML = "Insert Card Name";
+    // CardCost.innerHTML = "Insert Card Cost";
+    // CardPrice.innerHTML = "Insert Card Price";
+    // CardQuantity.innerHTML = "Insert Card Quantity";
+    // }
+
+    // function myDeleteFunction() {
+    // document.getElementById("myTable").deleteRow(0);
+    // }
+    </script>
+</body>
+</html>
