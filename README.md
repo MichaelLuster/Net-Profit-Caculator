@@ -4,7 +4,7 @@
 
 The current progress of the net profit caculator is it uses a file, currently, for all of the data(Product Name, Cost, Price, Quanity, and shipping), and uses the data to be able to find the expected net profit. Currently the application uses 10% of the product cost for taxes and 15% fee of the product cost(assuming the user is selling on Ebay) to be able to find the net amount. The formula to be able to find the net profit is the following:
 
-Net Profit = (sum of the product price * 0.85) - (sum of the cost) - (sum of the cost * 0.1) - shipping cost
+Net Profit = (sum of the product price * 0.85) - (sum of the cost + shipping) - ((sum of the cost + shipping) * 0.1)
 
 The current progress of the application can be seen in the following images:
 
